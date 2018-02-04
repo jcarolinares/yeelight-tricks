@@ -30,12 +30,14 @@ global detection_thread
 
 #Function to create the loop bulb thread
 def start_search_light():
+    global detection_thread
     detection_thread = Thread(target=bulbs_detection_loop)
     detection_thread.start()
     # give detection thread some time to collect bulb info
     sleep(0.2)
 
 def stop_search_light():
+    global detection_thread
     # user interaction end, tell detection thread to quit and wait
     RUNNING = False
     detection_thread.join()
