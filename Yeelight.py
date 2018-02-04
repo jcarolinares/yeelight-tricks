@@ -1,5 +1,14 @@
 #!/usr/bin/python
 
+'''
+Original example created by Yeelight
+
+This program has been modified to implement new methods by Julian Caro Linares
+
+jcarolinares@gmail.com
+
+'''
+
 import socket
 import time
 import fcntl
@@ -26,7 +35,7 @@ fcntl.fcntl(listen_socket, fcntl.F_SETFL, os.O_NONBLOCK)
 mreq = struct.pack("4sl", socket.inet_aton(MCAST_GRP), socket.INADDR_ANY)
 listen_socket.setsockopt(socket.IPPROTO_IP, socket.IP_ADD_MEMBERSHIP, mreq)
 
-global detection_thread
+
 
 #Function to create the loop bulb thread
 def start_search_light():
@@ -190,6 +199,10 @@ def toggle_bulb(idx):
 
 def set_bright(idx, bright):
   operate_on_bulb(idx, "set_bright", str(bright))
+
+def set_color(idx=1, RGB_value=[255,255,255],color_temp=0,effect="", duration=0):
+  RGB=RGB_value[0]*65536+RGB_value[1]*256+RGB_value[2]
+  operate_on_bulb(idx,"set_rgb", str(RGB))
 
 def print_cli_usage():
   print "Usage:"
